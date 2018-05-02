@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './authVC/auth.dart';
 
 final pages = [
   new PageViewModel(
@@ -6,14 +7,14 @@ final pages = [
       '../assets/',
       'Engagement',
       'The Why Of Learning',
-      '../assets/'
+      '../assets/',
   ),
   new PageViewModel(
       const Color(0xFF65B0B4),
       '../assets/',
       'Representation',
       'The What Of Leraning',
-      '../assets/'
+      '../assets/',
   ),
   new PageViewModel(
     const Color(0xFF9B90BC),
@@ -34,10 +35,34 @@ class Page extends StatelessWidget {
     this.percentVisible = 1.0,
   });
 
+  _buttonPressed(BuildContext context){
+    print(context);
+    Navigator.push(context, 
+      new MaterialPageRoute(
+        builder: (context) => new AuthVC(),
+      )
+    );
+  }
+
+  Widget _buildEnterBtn(BuildContext context){
+    return new RaisedButton(
+      child: new Text("Enter", style: new TextStyle(
+        color: Colors.white,
+        fontSize: 17.0,
+        fontWeight: FontWeight.bold
+      ),),
+      elevation: 8.0,
+      color: Colors.lime,
+      textColor: Colors.white,
+      padding: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+      onPressed: _buttonPressed(context),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Container(
-        width: double.INFINITY,
+        width: double.infinity,
         color: viewModel.color,
         child: new Opacity(
           opacity: percentVisible,
@@ -53,6 +78,7 @@ class Page extends StatelessWidget {
                         width: 200.0,
                         height: 200.0
                     ),
+                    // child: new FlatButton();
                   ),
                 ),
                 new Transform(
@@ -83,6 +109,7 @@ class Page extends StatelessWidget {
                     ),
                   ),
                 ),
+                _buildEnterBtn(context),
               ]
           ),
         )
@@ -102,6 +129,6 @@ class PageViewModel {
     this.heroAssetPath,
     this.title,
     this.body,
-    this.iconAssetPath,
+    this.iconAssetPath
   );
 }
